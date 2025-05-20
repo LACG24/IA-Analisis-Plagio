@@ -1,2 +1,16 @@
 codigo_1,codigo_2,tipo_plagio
 dataset/par-10-a-bubble-sort.py,dataset/par-10-b-bubble-sort.py,1
+dataset/par-1-a-juego-puntuacion.py,dataset/par-1-b-juego-puntuacion.py,4
+dataset/par-2-a-dijkstra.py,dataset/par-2-b-dijkstra.py,4
+dataset/par-3-b-diamond-grid.py,dataset/par-3-a-diamond-grid.py,3
+dataset/par-4-a-union-find.py,dataset/par-4-b-union-find.py,1
+dataset/par-5-a-pintar-nodos.py,dataset/par-5-b-pintar-nodos.py,1
+dataset/par-6-a-min-area.py,dataset/par-6-b-min-area.py,3
+dataset/par-7-a-grundy-numbers.py,dataset/par-7-b-grundy-numbers.py,2
+dataset/par-8-a-knapsack-pesos.py,dataset/par-8-b-knapsack-pesos.py,4
+dataset/par-9-a-behavior-propagation.py,dataset/par-9-b-behavior-propagation.py,3
+dataset/par-9-a-behavior-propagation.py,dataset/par-9-c-behavior-propagation.py,4
+dataset/par-9-a-behavior-propagation.py,dataset/par-9-d-behavior-propagation.py,4
+dataset/par-9-c-behavior-propagation.py,dataset/par-9-b-behavior-propagation.py,3
+dataset/par-9-b-behavior-propagation.py,dataset/par-9-d-behavior-propagation.py,3
+dataset/par-9-c-behavior-propagation.py,dataset/par-9-d-behavior-propagation.py,3
