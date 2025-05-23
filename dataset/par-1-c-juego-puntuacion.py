@@ -3,64 +3,66 @@ from itertools import product
 from math import pi
 import copy
 
-row_vals, col_vals = None, None
+b, c = None, None
 
-def compute_score(grid):
-    result = 0
-    for i in range(3):
-        for j in range(3):
-            if i + 1 < 3 and grid[i][j] == grid[i + 1][j]:
-                result += row_vals[i][j]
-            if j + 1 < 3 and grid[i][j] == grid[i][j + 1]:
-                result += col_vals[i][j]
-    return result
 
-memoization = {}
+def calc_score(field):
+    score = 0
+    for y in range(3):
+        for x in range(3):
+            if y + 1 < 3 and field[y][x] == field[y + 1][x]:
+                score += b[y][x]
+            if x + 1 < 3 and field[y][x] == field[y][x + 1]:
+                score += c[y][x]
+    return score
 
-def freeze(grid):
-    return tuple(grid[0]), tuple(grid[1]), tuple(grid[2])
+memo = {}
 
-def search(depth, grid):
-    if depth >= 9:
-        return compute_score(grid)
 
-    if freeze(grid) in memoization:
-        return memoization[freeze(grid)]
+def lt(l):
+    return tuple(l[0]), tuple(l[1]), tuple(l[2])
 
-    player = depth % 2
-    res = 0 if player == 0 else 10 ** 10
 
-    for i in range(3):
-        for j in range(3):
-            if grid[i][j] is None:
-                grid[i][j] = player
-                temp_score = search(depth + 1, grid)
-                grid[i][j] = None
+def dfs(i, field):
+    if i >= 9:
+        return calc_score(field)
 
-                if player == 0 and temp_score > res:
-                    res = temp_score
-                if player == 1 and temp_score < res:
-                    res = temp_score
+    if lt(field) in memo:
+        return memo[lt(field)]
 
-    memoization[freeze(grid)] = res
-    return res
+    mark = i % 2
+    best_score = 0 if mark == 0 else 10 ** 10
+    for y in range(3):
+        for x in range(3):
+            if field[y][x] is None:
+                field[y][x] = mark
+                score = dfs(i + 1, field)
+                field[y][x] = None
+
+                if mark == 0 and score > best_score:
+                    best_score = score
+                if mark == 1 and score < best_score:
+                    best_score = score
+
+    memo[lt(field)] = best_score
+    return best_score
+
 
 def main():
-    global row_vals, col_vals
-    r1 = list(map(int, input().split()))
-    r2 = list(map(int, input().split()))
-    row_vals = [r1, r2]
-
+    global b, c
+    b1 = list(map(int, input().split()))
+    b2 = list(map(int, input().split()))
+    b = [b1, b2]
     c1 = list(map(int, input().split()))
     c2 = list(map(int, input().split()))
     c3 = list(map(int, input().split()))
-    col_vals = [c1 + [0], c2 + [0], c3 + [0]]
+    c = [c1 + [0], c2 + [0], c3 + [0]]
 
-    board = [[None] * 3 for _ in range(3)]
-    score1 = search(0, board)
-    full_score = sum([sum(x) for x in row_vals + col_vals])
-    print(score1)
-    print(full_score - score1)
+    field = [[None] * 3 for _ in range(3)]
+    score = dfs(0, field)
+    total = sum([sum(x) for x in b + c])
+    print(*[score, total - score], sep="\n")
+
 
 if __name__ == '__main__':
     main()

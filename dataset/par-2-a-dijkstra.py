@@ -1,76 +1,46 @@
-xs,ys,xt,yt=list(map(int,input().split()))
-N=int(input())
-a=[]
-for i in range(N):
-	a.append(list(map(int,input().split())))
+x1, y1, x2, y2 = map(int, input().split())
+n = int(input())
+circles = [list(map(int, input().split())) for _ in range(n)]
 
-# xs,ys,xt,yt=[-1000000000, -1000000000, 1000000000, 1000000000]
-# N=1
-# a=[[-1000000000, 1000000000, 1]]
-
-class Dijkstra(object):
-	"""
-	ダイクストラ法,(N^2)
-	ステータス:distance(list),prev(list),size(int)
-	distancemap[i][j]->Distance of edge i to j
-	"""
-	def __init__(self, distancemap, start):
-		self.start=start
-		self.size=len(distancemap)
-		self.distance=[float("inf") for x in range(self.size)]
-		self.distance[start]=0
-		self.prev=[0 for x in range(self.size)]
-		self.prev[start]=-1
-		yet=list(range(self.size))
-		yet.remove(start)
-		now=start
-		while(yet!=[]):
-			nearest_num=0
-			nearest_dis=float("inf")
-			for i in yet:
-				total_dis=distancemap[now][i]+self.distance[now]
-				self.distance[i]=min(total_dis, self.distance[i])
-				if self.distance[i]<=nearest_dis:
-					nearest_dis=self.distance[i]
-					nearest_num=i
-			yet.remove(nearest_num)
-			self.prev[nearest_num]=now
-			now=nearest_num
-
-	def route(self,goal):
-		route=[]
-		while(True):
-			route.append(self.prev[goal])
-			goal=self.prev[goal]
-			if goal==self.start:
-				break
-		route.reverse()
-		return(route)
+class Dijkstra:
+    def __init__(self, graph, src):
+        self.start = src
+        self.size = len(graph)
+        self.dist = [float("inf")] * self.size
+        self.dist[src] = 0
+        self.prev = [0] * self.size
+        self.prev[src] = -1
+        unvisited = list(range(self.size))
+        unvisited.remove(src)
+        now = src
+        while unvisited:
+            next_node = 0
+            next_dist = float("inf")
+            for node in unvisited:
+                total = graph[now][node] + self.dist[now]
+                self.dist[node] = min(self.dist[node], total)
+                if self.dist[node] <= next_dist:
+                    next_dist = self.dist[node]
+                    next_node = node
+            unvisited.remove(next_node)
+            self.prev[next_node] = now
+            now = next_node
 
 import math
-def solve(xs,ys,xt,yt,N,a):
-	a.insert(0,[xs,ys,0])
-	a.append([xt,yt,0])
-	def distance(i,j):
-		x1=a[i][0]
-		y1=a[i][1]
-		r1=a[i][2]
-		x2=a[j][0]
-		y2=a[j][1]
-		r2=a[j][2]
-		d=math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))-r1-r2
-		if d<0:
-			d=0
-		return(d)
-	distancemap=[[0 for x in range(N+2)] for x in range(N+2)]
-	for i in range(N+2):
-		for j in range(N+2):
-			if i>j:
-				distancemap[i][j]=distancemap[j][i]
-			else:
-				distancemap[i][j]=distance(i,j)
 
-	d=Dijkstra(distancemap, 0)
-	return(d.distance.pop())
+def solve(x1, y1, x2, y2, n, circles):
+    circles.insert(0, [x1, y1, 0])
+    circles.append([x2, y2, 0])
+    def dist(i, j):
+        xi, yi, ri = circles[i]
+        xj, yj, rj = circles[j]
+        d = math.hypot(xi - xj, yi - yj) - ri - rj
+        return max(d, 0)
+    g = [[0]*(n+2) for _ in range(n+2)]
+    for i in range(n+2):
+        for j in range(n+2):
+            g[i][j] = g[j][i] if i > j else dist(i, j)
+    d = Dijkstra(g, 0)
+    return d.dist[-1]
 
-print(solve(xs, ys, xt, yt, N, a))
+print(solve(x1, y1, x2, y2, n, circles))
