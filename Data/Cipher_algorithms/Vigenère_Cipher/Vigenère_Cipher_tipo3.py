@@ -1,37 +1,86 @@
-class CifradoVigenere:
-    def __init__(self, clave: str):
-        if not clave.isalpha():
-            raise ValueError("La clave debe consistir solo en caracteres alfabéticos.")
-        self.clave = clave.upper()
+class VigenereCipher:
+    
+        Args:
+            key (str): The key for the cipher, must be alphabetic.
 
-    def _formatear_texto(self, texto: str) -> str:
-        return ''.join(filter(str.isalpha, texto)).upper()
+        Raises:
+            ValueError: If the key is not alphabetic.
+        """
+        if not key.isalpha():
+            raise ValueError("Key must consist of alphabetic characters only.")
+        self.key = key.upper()
 
-    def _extender_clave(self, texto: str) -> str:
-        if not texto:
-            raise ValueError("El texto no puede estar vacío.")
-        longitud_clave = len(self.clave)
-        clave_extendida = (self.clave * (len(texto) // longitud_clave)) + self.clave[:len(texto) % longitud_clave]
-        return clave_extendida
+    
+        Args:
+            text (str): The text to format.
 
-    def cifrar(self, texto_plano: str) -> str:
-        texto_formateado = self._formatear_texto(texto_plano)
-        clave_extendida = self._extender_clave(texto_formateado)
-        texto_cifrado = []
+        Returns:
+            str: Formatted text containing only uppercase alphabetic characters.
+        """
+        return ''.join(filter(str.isalpha, text)).upper()
 
-        for p, k in zip(texto_formateado, clave_extendida):
-            caracter_cifrado = chr(((ord(p) - ord('A') + ord(k) - ord('A')) % 26) + ord('A'))
-            texto_cifrado.append(caracter_cifrado)
+    
+        Args:
+            text (str): The text to match the key against.
 
-        return ''.join(texto_cifrado)
+        Returns:
+            str: The extended key.
+        """
+        if not text:  # Check for empty text
+            raise ValueError("Text cannot be empty.")
+        key_length = len(self.key)
+        extended_key = (self.key * (len(text) // key_length)) + self.key[:len(text) % key_length]
+        return extended_key
 
-    def descifrar(self, texto_cifrado: str) -> str:
-        texto_formateado = self._formatear_texto(texto_cifrado)
-        clave_extendida = self._extender_clave(texto_formateado)
-        texto_plano = []
+    
+        Args:
+            plaintext (str): The plaintext to encrypt.
 
-        for c, k in zip(texto_formateado, clave_extendida):
-            caracter_descifrado = chr(((ord(c) - ord('A') - (ord(k) - ord('A'))) % 26) + ord('A'))
-            texto_plano.append(caracter_descifrado)
+        Returns:
+            str: The encrypted ciphertext.
+        """
+        formatted_text = self._format_text(plaintext)
+        extended_key = self._extend_key(formatted_text)
+        ciphertext = []
 
-        return ''.join(texto_plano)
+        for p, k in zip(formatted_text, extended_key):
+            encrypted_char = chr(((ord(p) - ord('A') + ord(k) - ord('A')) % 26) + ord('A'))
+            ciphertext.append(encrypted_char)
+
+        return ''.join(ciphertext)
+
+    
+        Args:
+            ciphertext (str): The ciphertext to decrypt.
+
+        Returns:
+            str: The decrypted plaintext.
+        """
+        formatted_text = self._format_text(ciphertext)
+        extended_key = self._extend_key(formatted_text)
+        plaintext = []
+
+        for c, k in zip(formatted_text, extended_key):
+            decrypted_char = chr(((ord(c) - ord('A') - (ord(k) - ord('A'))) % 26) + ord('A'))
+            plaintext.append(decrypted_char)
+
+        return ''.join(plaintext)
+
+def decrypt(self, ciphertext: str) -> str:
+        """Decrypt the ciphertext using the Vigenère cipher.
+
+
+def encrypt(self, plaintext: str) -> str:
+        """Encrypt the plaintext using the Vigenère cipher.
+
+
+def _extend_key(self, text: str) -> str:
+        """Extend the key to match the length of the text.
+
+
+def _format_text(self, text: str) -> str:
+        """Format the text by filtering non-alphabetic characters and converting to uppercase.
+
+
+def __init__(self, key: str):
+        """Initialize the Vigenère cipher with a key.

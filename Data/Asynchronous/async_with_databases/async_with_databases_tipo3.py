@@ -2,16 +2,19 @@ import asyncio
 import asyncpg
 import logging
 
-async def obtener_datos_bd():
-    conexion = await asyncpg.connect(user='usuario', password='contraseña', database='bd', host='localhost')
-    logging.info("Conectado a la base de datos")
-    datos = await conexion.fetch('SELECT * FROM mi_tabla')
-    await conexion.close()
-    return datos
-
-async def principal():
-    datos = await obtener_datos_bd()
-    logging.info(f"Datos obtenidos de la base de datos: {datos}")
-
+async 
+async 
 if __name__ == "__main__":
-    asyncio.run(principal())
+    asyncio.run(main()) 
+
+def main():
+    data = await fetch_from_db()
+    logging.info(f"Data fetched from database: {data}")
+
+
+def fetch_from_db():
+    conn = await asyncpg.connect(user='user', password='password', database='db', host='localhost')
+    logging.info("Connected to database")
+    data = await conn.fetch('SELECT * FROM my_table')
+    await conn.close()
+    return data
