@@ -725,9 +725,6 @@ Data/Cipher_algorithms/test_cipher_manager/test_cipher_manager.py,Data/Cipher_al
 Data/Cipher_algorithms/cipher_manager/cipher_manager.py,Data/Cipher_algorithms/cipher_manager/cipher_manager_tipo2.py,2
 Data/Cipher_algorithms/cipher_manager/cipher_manager.py,Data/Cipher_algorithms/cipher_manager/cipher_manager_tipo3.py,3
 Data/Cipher_algorithms/cipher_manager/cipher_manager.py,Data/Cipher_algorithms/cipher_manager/cipher_manager.py,1
-Data/Cipher_algorithms/Vigenère_Cipher/Vigenère_Cipher.py,Data/Cipher_algorithms/Vigenère_Cipher/Vigenère_Cipher_tipo2.py,2
-Data/Cipher_algorithms/Vigenère_Cipher/Vigenère_Cipher.py,Data/Cipher_algorithms/Vigenère_Cipher/Vigenère_Cipher_tipo3.py,3
-Data/Cipher_algorithms/Vigenère_Cipher/Vigenère_Cipher.py,Data/Cipher_algorithms/Vigenère_Cipher/Vigenère_Cipher.py,1
 Data/models/Logistic_regression/Logistic_regression.py,Data/models/Logistic_regression/Logistic_regression_tipo2.py,2
 Data/models/Logistic_regression/Logistic_regression.py,Data/models/Logistic_regression/Logistic_regression_tipo3.py,3
 Data/models/Logistic_regression/Logistic_regression.py,Data/models/Logistic_regression/Logistic_regression.py,1
