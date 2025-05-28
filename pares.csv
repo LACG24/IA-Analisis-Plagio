@@ -717,7 +717,7 @@ Data/Cipher_algorithms/Rail_Fence_Cipher/Rail_Fence_Cipher.py,Data/Cipher_algori
 Data/Cipher_algorithms/Rail_Fence_Cipher/Rail_Fence_Cipher.py,Data/Cipher_algorithms/Rail_Fence_Cipher/Rail_Fence_Cipher_tipo3.py,3
 Data/Cipher_algorithms/Rail_Fence_Cipher/Rail_Fence_Cipher.py,Data/Cipher_algorithms/Rail_Fence_Cipher/Rail_Fence_Cipher.py,1
 Data/Cipher_algorithms/hill_cipher/hill_cipher.py,Data/Cipher_algorithms/hill_cipher/hill_cipher_tipo2.py,2
-Data/Cipher_algorithms/hill_cipher/hill_cipher.py,Data/Cipher_algorithms/hill_cipher/hill_cipher_tipo3.py,3
+Data/Cipher_algorithms/hill_cipher/hill_cipher.py,Data/Cipher_algorithms/hill_cipher/hill_cipher_tipo3.py,2
 Data/Cipher_algorithms/hill_cipher/hill_cipher.py,Data/Cipher_algorithms/hill_cipher/hill_cipher.py,1
 Data/Cipher_algorithms/test_cipher_manager/test_cipher_manager.py,Data/Cipher_algorithms/test_cipher_manager/test_cipher_manager_tipo3.py,3
 Data/Cipher_algorithms/test_cipher_manager/test_cipher_manager.py,Data/Cipher_algorithms/test_cipher_manager/test_cipher_manager_tipo2.py,2
