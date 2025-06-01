@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Header from './Header.js';
+import UploadArea from './UploadArea.js';
+import Results from './Result.js';
 
 function App() {
+  const [files, setFiles] = useState([]);
+  const [results, setResults] = useState(null);
+
+  const handleFilesChange = (newFiles) => {
+    setFiles(newFiles);
+  };
+
+  const handleAnalyze = async () => {
+  const readFiles = await Promise.all(
+    files.map(async (file) => {
+      const content = await file.text();
+      return { name: file.name, content };
+    })
+  );
+
+  setResults(readFiles);
+};
+
+
+  const resetApp = () => {
+    setFiles([]);
+    setResults(null);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-white">
+      <Header onReset={resetApp} />
+      {results ? (
+        <Results data={results} />
+      ) : (
+        <UploadArea onChange={setFiles} onAnalyze={handleAnalyze} files={files} />
+      )}
     </div>
   );
 }
