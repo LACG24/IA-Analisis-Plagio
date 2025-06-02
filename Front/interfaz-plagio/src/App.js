@@ -5,36 +5,60 @@ import Results from './Result.js';
 
 function App() {
   const [files, setFiles] = useState([]);
-  const [results, setResults] = useState(null);
+  const [resultado, setResultado] = useState(null);
 
   const handleFilesChange = (newFiles) => {
     setFiles(newFiles);
   };
 
-  const handleAnalyze = async () => {
-  const readFiles = await Promise.all(
-    files.map(async (file) => {
-      const content = await file.text();
-      return { name: file.name, content };
+ const handleAnalyze = () => {
+  if (files.length < 2) {
+    alert("Sube dos archivos para comparar");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("file1", files[0]);
+  formData.append("file2", files[1]);
+
+  // Leer contenido de archivos antes de enviarlos
+  const leerArchivos = files.map(file => {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve({ name: file.name, content: reader.result });
+      };
+      reader.readAsText(file);
+    });
+  });
+
+  Promise.all(leerArchivos).then(archivosLeidos => {
+    fetch("http://127.0.0.1:5000/analizar", {
+      method: "POST",
+      body: formData,
     })
-  );
-
-  setResults(readFiles);
+      .then(res => res.json())
+      .then(data => {
+        setResultado({ archivos: archivosLeidos, texto: data.resultado });
+      })
+      .catch(error => {
+        console.error("Error al enviar archivos:", error);
+      });
+  });
 };
-
 
   const resetApp = () => {
     setFiles([]);
-    setResults(null);
+    setResultado(null);
   };
 
   return (
     <div className="min-h-screen bg-white">
       <Header onReset={resetApp} />
-      {results ? (
-        <Results data={results} />
+      {resultado ? (
+        <Results archivos={resultado.archivos}  resultado={resultado.texto}/>
       ) : (
-        <UploadArea onChange={setFiles} onAnalyze={handleAnalyze} files={files} />
+        <UploadArea onChange={handleFilesChange} onAnalyze={handleAnalyze} files={files} />
       )}
     </div>
   );
