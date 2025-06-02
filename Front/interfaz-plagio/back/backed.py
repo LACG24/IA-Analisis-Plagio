@@ -57,7 +57,7 @@ class PlagioNet(nn.Module):
     def forward(self, x):
         return self.net(x)
 
-def cargar_modelo_y_encoder(path="model.pth"):
+def cargar_modelo_y_encoder(path="model95.pth"):
     checkpoint = torch.load(path, map_location='cpu')
 
     model = PlagioNet(input_size=checkpoint['input_size'], num_classes=checkpoint['num_classes'])
