@@ -18,8 +18,10 @@ function App() {
   }
 
   const formData = new FormData();
-  formData.append("file1", files[0]);
-  formData.append("file2", files[1]);
+  files.forEach(file => {
+    formData.append("files", file);
+  });
+
 
   // Leer contenido de archivos antes de enviarlos
   const leerArchivos = files.map(file => {

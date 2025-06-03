@@ -16,7 +16,7 @@
   padding: 1rem;
   border-radius: 8px;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   text-align: left;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
@@ -29,11 +29,13 @@
 }
 
 .code-content {
+  height: 300px;
+  width: 580px;
+  overflow: auto;
   background-color: #2d2d2d;
-  padding: 0.75rem;
-  border-radius: 4px;
-  overflow-x: auto;
+  padding: 10px;
+  border-radius: 8px;
   font-family: monospace;
-  font-size: 0.9rem;
   white-space: pre-wrap;
 }
+
