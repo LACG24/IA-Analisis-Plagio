@@ -28,9 +28,18 @@ export default function Results({ archivos, resultado }) {
       {Array.isArray(resultado) ? (
         resultado.map((r, i) => (
           <div key={i} className="mb-4">
-            <strong>{r.archivo1} vs {r.archivo2}:</strong>
+            <strong>{r.archivo1} comparado con {r.archivo2}:</strong>
             <pre className="whitespace-pre-wrap text-sm mt-1">
-              {r.resultado}
+              Tipo 0:   {r.resultado["Tipo 0"]}
+            </pre>
+            <pre className="whitespace-pre-wrap text-sm mt-1">
+              Tipo 1:   {r.resultado["Tipo 1"]}
+            </pre>
+            <pre className="whitespace-pre-wrap text-sm mt-1">
+              Tipo 2:   {r.resultado["Tipo 2"]}
+            </pre>
+            <pre className="whitespace-pre-wrap text-sm mt-1">
+              Tipo 3:   {r.resultado["Tipo 3"]}
             </pre>
           </div>
         ))

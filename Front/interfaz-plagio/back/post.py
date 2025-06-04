@@ -5,6 +5,7 @@ import torch
 from itertools import combinations
 from werkzeug.utils import secure_filename
 from backed import predecir_par
+from modelo import comparar_funciones_combinado
 
 
 app = Flask(__name__)
@@ -34,7 +35,6 @@ def analizar():
     resultados = []
     for (ruta1, ruta2), (nombre1, nombre2) in zip(combinations(rutas, 2), combinations(nombres, 2)):
         resultado = predecir_par(ruta1, ruta2)
-        resultado = resultado.replace("\n", " ") 
         resultados.append({
             "archivo1": nombre1,
             "archivo2": nombre2,
@@ -52,6 +52,30 @@ def analizar():
     )
     print("resumen", resumen)
     return jsonify({"resultado": resultados})
+
+@app.route('/comparar_similitud', methods=['POST'])
+def comparar_similitud():
+    archivos = request.files.getlist("files")
+
+    if len(archivos) != 2:
+        return jsonify({"error": "Debes subir exactamente dos archivos"}), 400
+
+    # Guardar archivos temporalmente
+    rutas = []
+    for archivo in archivos:
+        nombre = secure_filename(archivo.filename)
+        ruta = os.path.join(UPLOAD_FOLDER, nombre)
+        archivo.save(ruta)
+        rutas.append(ruta)
+
+    # Ejecutar comparación
+    similitudes = comparar_funciones_combinado(rutas[0], rutas[1])
+
+    # Borrar archivos temporales
+    for ruta in rutas:
+        os.remove(ruta)
+
+    return jsonify({"similitudes_altas": similitudes})
 
 
 if __name__ == "__main__":

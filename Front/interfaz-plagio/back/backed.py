@@ -33,6 +33,7 @@ class PlagioNet(nn.Module):
 
     def forward(self, x):
         return self.net(x)
+    
 
 def cargar_modelo_y_encoder(path="model95.pth"):
     checkpoint = torch.load(path, map_location='cpu')
@@ -59,9 +60,9 @@ def predecir_par(path1, path2):
         outputs = model(x)
         probs = torch.softmax(outputs, dim=1).numpy()[0]
 
-    resultado = []
+    resultado = {}
     for idx, prob in enumerate(probs):
-        tipo = label_encoder.inverse_transform([idx])[0]
-        resultado.append(f"Tipo {tipo}: {prob*100:.2f}%")
+        tipo = f"Tipo {idx}"
+        resultado[tipo] = f"{round(float(prob) * 100, 2)}%"
 
-    return "\\n".join(resultado)
+    return resultado

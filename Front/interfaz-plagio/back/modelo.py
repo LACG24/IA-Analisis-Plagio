@@ -109,3 +109,46 @@ def features_por_par(path1, path2):
         len(emb1), len(emb2), sim_tfidf,
         sim_bruta, idf_diff, lineas_eq
     ]
+# Función para vector TF-IDF
+def get_tfidf_vector(text):
+    return vectorizer.transform([text]).toarray()[0]
+
+def comparar_funciones_combinado(path1, path2):
+    funciones_1 = extraer_todas_funciones(path1)
+    funciones_2 = extraer_todas_funciones(path2)
+
+    # Anonimizar funciones
+    funcs_anon_1 = [anonimizar_codigo(f) for f in funciones_1]
+    funcs_anon_2 = [anonimizar_codigo(f) for f in funciones_2]
+
+    # Paso 1: Crea el objeto vectorizador global
+    # TF-IDF: fit-transform
+    vectorizer = TfidfVectorizer()
+    corpus = funcs_anon_1 + funcs_anon_2
+    vectorizer.fit(corpus)
+
+    tfidf_1 = vectorizer.transform(funcs_anon_1).toarray()
+    tfidf_2 = vectorizer.transform(funcs_anon_2).toarray()
+
+    # CodeBERT
+    emb_1 = [get_embedding(f, capa=1) for f in funcs_anon_1]
+    emb_2 = [get_embedding(f, capa=1) for f in funcs_anon_2]
+
+    umbral = 0.8
+    similitud_alta = []
+    for i, (e1, t1) in enumerate(zip(emb_1, tfidf_1)):
+        for j, (e2, t2) in enumerate(zip(emb_2, tfidf_2)):
+            sim_bert = cosine_similarity([e1], [e2])[0][0]
+            sim_tfidf = cosine_similarity([t1], [t2])[0][0]
+            sim_combinada = 0.3 * sim_bert + 0.7 * sim_tfidf
+            if sim_combinada >= umbral:
+                similitud_alta.append({
+                    "func1": i,
+                    "func2": j,
+                    "sim_combinada": sim_combinada
+                })
+           
+    return similitud_alta
+
+    
+print(comparar_funciones_combinado("par-1-a-juego-puntuacion.py", "par-1-b-juego-puntuacion.py"))
