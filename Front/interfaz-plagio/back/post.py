@@ -41,9 +41,11 @@ def analizar():
             "resultado": resultado
         })
 
-    # (Opcional) Borrar archivos después de procesar
     for ruta in rutas:
-        os.remove(ruta)
+        if os.path.exists(ruta):
+            os.remove(ruta)
+        else:
+            print(f"⚠️ Archivo no encontrado (ya eliminado?): {ruta}")
 
     # Unir todos los resultados en un solo string legible
     resumen = "\n".join(

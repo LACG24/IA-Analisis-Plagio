@@ -24,14 +24,8 @@ export default function UploadArea({ files, onChange, onAnalyze }) {
             <p className="mt-2 text-sm">{file.name}</p>
           </div>
         ))}
-        <div className="flex gap-4 mt-4">
-        <button
-          onClick={() => setShowLabel(true)}
-          className="flex flex-col items-center text-center hover:scale-105"
-        >
-          <Plus size={48} />
-        </button>
-        {showLabel && (<label className="cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded text-sm shadow">
+        <div className="upload-wrapper">
+        {showLabel && (<label className="upload-wrapper">
         Subir archivos
         <input
           type="file"
@@ -43,7 +37,15 @@ export default function UploadArea({ files, onChange, onAnalyze }) {
       </label>
         )}
       </div>
-      <button onClick={onAnalyze} className="btn btn-primary">
+      <div className="upload-wrapper">
+        <button
+          onClick={() => setShowLabel(true)}
+          className="btn-upload"
+        >
+          <Plus size={48} />
+        </button>
+        </div>
+      <button onClick={onAnalyze} className="btn-analizar">
         Analizar
       </button>
       </div>

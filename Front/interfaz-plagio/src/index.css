@@ -86,3 +86,43 @@ body, html, #root {
   margin-bottom: 1rem;
 }
 
+.btn-analizar {
+  display: block;
+  margin: 1rem auto 0 auto; 
+  padding: 0.6rem 1.5rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  transition: background-color 0.2s ease;
+}
+
+.btn-analizar:hover {
+  background-color: #005fa3;
+}
+
+.btn-upload {
+  display: block;
+  margin: 1rem auto 0 auto; 
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.btn-upload:hover {
+  transform: scale(1.2);
+}
+
+.upload-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+

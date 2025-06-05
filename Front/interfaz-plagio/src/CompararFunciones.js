@@ -56,13 +56,13 @@ function CompararFunciones({ files }) {
         ))}
       </div>
 
-      <h2 className="mt-6">Resultado del análisis por funciones</h2>
+      <strong className="mt-6">Resultado del análisis por funciones</strong>
       <div className="result-box">
         {Array.isArray(resultado.texto) && resultado.texto.length > 0 ? (
           resultado.texto.map((r, i) => (
-            <div key={i} className="mb-2">
+            <pre key={i} className="mb-2">
               Función {r.func1} vs {r.func2} → Similitud: {r.sim_combinada.toFixed(4)}
-            </div>
+            </pre>
           ))
         ) : (
           <p>No hay similitudes altas encontradas.</p>
