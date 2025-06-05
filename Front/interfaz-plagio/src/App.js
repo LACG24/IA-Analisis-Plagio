@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './index.js'
 import Header from './Header.js';
 import UploadArea from './UploadArea.js';
 import Results from './Result.js';
@@ -9,6 +10,7 @@ function App() {
   const [resultado, setResultado] = useState(null);
   const [resultadoF, setResultadoF] = useState(null);
   const [modoAnalisis, setModoAnalisis] = useState("completo"); // "completo" o "funciones"
+  const [mostrarAnalisisCompleto, setMostrarAnalisisCompleto] = useState(false);
   const [mostrarComparacion, setMostrarComparacion] = useState(false);
 
   const handleFilesChange = (newFiles) => {
@@ -19,6 +21,7 @@ function App() {
     setFiles([]);
     setResultado(null);
     setMostrarComparacion(false);
+    setMostrarAnalisisCompleto(false);
   };
 
   const handleAnalyzeCompleto = () => {
@@ -27,35 +30,7 @@ function App() {
       return;
     }
 
-    const formData = new FormData();
-    files.forEach(file => {
-      formData.append("files", file);
-    });
-
-    // Leer contenido para mostrarlo en Results
-    const leerArchivos = files.map(file => {
-      return new Promise(resolve => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          resolve({ name: file.name, content: reader.result });
-        };
-        reader.readAsText(file);
-      });
-    });
-
-    Promise.all(leerArchivos).then(archivosLeidos => {
-      fetch("http://127.0.0.1:5000/analizar", {
-        method: "POST",
-        body: formData,
-      })
-        .then(res => res.json())
-        .then(data => {
-          setResultado({ archivos: archivosLeidos, texto: data.resultado });
-        })
-        .catch(error => {
-          console.error("Error al enviar archivos:", error);
-        });
-    });
+    setMostrarAnalisisCompleto(true);
   };
 
   const handleAnalyzeFunciones = () => {
@@ -90,11 +65,11 @@ function App() {
         </select>
       </div>
 
-      {modoAnalisis === "completo" && resultado && (
-        <Results archivos={resultado.archivos} resultado={resultado.texto} />
+      {modoAnalisis === "completo" && mostrarAnalisisCompleto && (
+        <Results files = {files} />
       )}
 
-      {((modoAnalisis === "completo" && !resultado) ||
+      {((modoAnalisis === "completo" && !mostrarAnalisisCompleto) ||
         (modoAnalisis === "funciones" && !mostrarComparacion)) && (
         <UploadArea
           onChange={handleFilesChange}

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  background-color: beige;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -14,5 +15,74 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* === Estilo base para todos los botones === */
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* === Botón principal (acciones importantes como "Analizar") === */
+.btn-primary {
+  background-color: #0077cc;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #005fa3;
+}
+
+/* === Botón secundario (acciones neutras como "Subir Archivos") === */
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/* === Botón de peligro (acciones destructivas como "Nuevo intento") === */
+.btn-danger {
+  background-color: #e53e3e;
+  color: white;
+}
+.btn-danger:hover {
+  background-color: #c53030;
+}
+
+/* === Tamaños opcionales === */
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+/* Centrar todo en la pantalla */
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  padding-top: 2rem;
+  justify-content: center;
+  background-color: #f8f8e7; /* fondo claro opcional */
+}
+.header-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-container h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 

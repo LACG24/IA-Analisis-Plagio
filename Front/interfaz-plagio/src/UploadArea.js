@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.js'
 import { FileText, Plus } from 'lucide-react';
 import { useState, useRef } from 'react';
 
@@ -42,7 +43,7 @@ export default function UploadArea({ files, onChange, onAnalyze }) {
       </label>
         )}
       </div>
-      <button onClick={onAnalyze} className="bg-[#00334e] text-white px-6 py-2 rounded shadow hover:bg-[#00293d]">
+      <button onClick={onAnalyze} className="btn btn-primary">
         Analizar
       </button>
       </div>
